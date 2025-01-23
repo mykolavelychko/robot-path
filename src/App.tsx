@@ -50,7 +50,7 @@ function App() {
         currentPosition = getNewPosition(currentPosition, currentDirection, parseInt(command[1], 10), obstacles);
       }
 
-      const distance = getMaxDistance([0, 0], currentPosition);
+      const distance = getMaxDistance(startingPosition, currentPosition);
       if (distance > maxDistance) {
         maxDistance = distance;
       }
