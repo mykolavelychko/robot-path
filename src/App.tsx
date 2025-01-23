@@ -38,6 +38,7 @@ function App() {
     const startingPosition: [number, number] = [0, 0];
     let currentPosition: [number, number] = startingPosition;
     let currentDirection = "N"; // N, S, E, W
+    let maxDistance = 0;
 
     // execute robot's commands
     for (const command of commands) {
@@ -48,10 +49,14 @@ function App() {
         // if's a move
         currentPosition = getNewPosition(currentPosition, currentDirection, parseInt(command[1], 10), obstacles);
       }
-      console.log(`current: ${currentDirection}  ${currentPosition}`);
+
+      const distance = getMaxDistance([0, 0], currentPosition);
+      if (distance > maxDistance) {
+        maxDistance = distance;
+      }
     }
 
-    setDistance(getMaxDistance(startingPosition, currentPosition));
+    setDistance(maxDistance.toFixed(2));
   };
 
   const getNewPosition = (currentPosition, currentDirection, steps, obstacles) => {
@@ -113,7 +118,7 @@ function App() {
   };
 
   const getMaxDistance = ([x1, y1], [x2, y2]) => {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)).toFixed(2);
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
   };
 
   return (
